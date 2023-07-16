@@ -1,0 +1,43 @@
+server:
+  servlet:
+    session:
+      timeout: 600
+  port: 8088
+
+spring: 
+  devtools:
+    livereload:
+      enabled: true
+  
+  datasource:
+      hikari:
+       #driver-class-name: org.mariadb.jdbc.Driver
+       driver-class-name: com.mysql.cj.jdbc.Driver
+       jdbc-url: "jdbc:mysql://localhost:3306/board"
+       username : "root"     
+       password: "qwe123"
+       auto-commit: false
+       connection-test-query: SELECT 1    
+       minimum-idle: 20
+       maximum-pool-size: 50
+       pool-name: pool-JH
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQLDialect
+#    open-in-view: false
+#    generate-ddl: true
+#    hibernate:
+#      ddl-auto: create
+#    show-sql: true
+  
+  thymeleaf:
+    cache: false           
+  
+jasypt:
+    encryptor:
+      bean: jasyptStringEncryptor        
+      
+logging:
+    level:
+        "[org.hibernate.SQL]": DEBUG
+        "[org.hibernate.type]": TRACE
+         

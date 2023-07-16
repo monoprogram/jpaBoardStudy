@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+html , body {
+	margin: 0;
+	padding : 0;
+}
+
+html, body {
+	width:100vw;
+	height:100%;
+}
+
+.form-floating>label {
+	color:#999;	
+}
+
+.container {
+	height:100%;
+}
+
+.login-bx {
+	display: grid;
+    align-content: center;
+    height:100%;
+}

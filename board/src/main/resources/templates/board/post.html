@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: head('게시글 등록')}"></head>
+<body>
+	<form th:action="@{/board/post}" method="POST">
+		내용<input type="text" id="content" name="content">
+		제목<input type="text" id="title" name="title" >
+		등록자<input type="text" readonly id="writer" name="writer" th:value="${session.mUser}">
+		
+		<input type="submit" value="등록">
+	</form>
+</body>
+</html>
