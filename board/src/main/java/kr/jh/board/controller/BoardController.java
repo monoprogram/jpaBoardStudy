@@ -1,12 +1,12 @@
 package kr.jh.board.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.jh.board.model.domain.Board;
 import kr.jh.board.model.dto.BoardDto;
+import kr.jh.board.model.dto.BoardRequestDto;
+import kr.jh.board.model.dto.BoardResponseDto;
 import kr.jh.board.service.BoardService;
 
 @Controller
@@ -28,7 +29,7 @@ public class BoardController {
 	@GetMapping("/list")
 	public ModelAndView boardList(@RequestParam(value="page" , defaultValue = "1") int pNm) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		List<BoardDto> bList =  boardService.getBoardList(pNm);
+		List<BoardResponseDto> bList =  boardService.getBoardList(pNm);
 		
 		mav.addObject("blist", bList);
 		
@@ -41,7 +42,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/post")
-	public String write(BoardDto boardDto) throws Exception {
+	public String write(BoardRequestDto boardDto) throws Exception {
 		try {
 			Long result = boardService.savePost(boardDto);
 			
@@ -59,9 +60,9 @@ public class BoardController {
 	@GetMapping("/post/{bno}")
 	public ModelAndView details(@PathVariable("bno") Long bno) throws Exception {
 		ModelAndView  mav = new ModelAndView();
-		Optional<Board> bto = boardService.getBoardContent(bno);
+		BoardResponseDto bresDto = boardService.getBoardContent(bno);
 		
-		mav.addObject("bDetail", bto);
+		mav.addObject("bDetail", bresDto);
 		mav.setViewName("board/detail");
 		return mav;
 	}
@@ -69,7 +70,7 @@ public class BoardController {
 	@GetMapping("/post/edit/{bno}")
 	public ModelAndView edit(@PathVariable("bno") Long bno) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		Optional<Board> bDto = boardService.getBoardContent(bno);
+		BoardResponseDto bDto = boardService.getBoardContent(bno);
 		
 		mav.addObject("bContent", bDto);
 		mav.setViewName("board/update");
@@ -77,8 +78,10 @@ public class BoardController {
 	}
 	
 	@PutMapping("/post/edit/{bno}")
-	public String update(BoardDto boardDto) {
-		boardService.updateBoardContent(boardDto);
+	public String update(@ModelAttribute("bReqDto") BoardRequestDto bReqDto) {
+		System.out.println("여기" + bReqDto.toString());
+		// all arg 설정 하고 에러 안남
+		boardService.updateBoardContent(bReqDto);
 		return "redirect:/board/list";
 	}
 	

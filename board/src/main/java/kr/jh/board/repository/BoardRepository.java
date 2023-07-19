@@ -1,5 +1,7 @@
 package kr.jh.board.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import kr.jh.board.model.domain.Board;

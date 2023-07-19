@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/header :: head('게시글 목록')}"></head>
+<script type="text/javascript" th:src="@{/js/board/list.js}"></script>
+<link th:href="@{/css/board/list.css}" rel="stylesheet">
 <body>
 	<header th:replace="~{layout/header :: header}"></header>
 	
@@ -18,7 +20,8 @@
 				<td colspan="2"> 등록된 게시물이 없습니다. </td>
 			</tr>
 			<tr th:if="${#lists.size(blist)} > 0" th:each="blist : ${blist}">
-				<td th:text="${blist.title}"></td>
+				<td th:text="${blist.id}"></td>
+				<td><a th:href="@{/board/post/{bno}(bno=${blist.id})}" th:text="${blist.title}"></a> </td>
 				<td th:text="${blist.content}"></td>
 				<td th:text="${blist.writer}"></td>
 				<td th:text="${#temporals.format(blist.updateDate , 'yyyy-MM-dd HH:mm:ss')}"></td>
@@ -26,6 +29,7 @@
 		</tbody>
 	</table>
 	
-	<footer th:replace="layout/footer :: footer"></footer>
+	<button type="button" id="postBtn" onclick="postMove()" class="btn btn-primary">글쓰기</button>
+	<footer th:replace="~{layout/footer :: footer}"></footer>
 </body>
 </html>

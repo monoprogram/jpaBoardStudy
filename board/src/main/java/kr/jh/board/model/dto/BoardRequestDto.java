@@ -3,13 +3,16 @@ package kr.jh.board.model.dto;
 import java.time.LocalDateTime;
 
 import kr.jh.board.model.domain.Board;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-public class BoardDto {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+public class BoardRequestDto {
 	private Long id;
 	private String writer;
 	private String title;
@@ -28,9 +31,8 @@ public class BoardDto {
 		return build;
 	}
 	
-	
 	@Builder
-	public BoardDto(Board bEntity) {
+	public BoardRequestDto(Board bEntity) {
 		this.id = bEntity.getId();
 		this.writer = bEntity.getWriter();
 		this.title = bEntity.getTitle();
@@ -38,6 +40,4 @@ public class BoardDto {
 		this.createDate = bEntity.getCreateDateTime();
 		this.updateDate = bEntity.getUpdateDateTime();
 	}
-	
-	
 }

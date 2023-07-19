@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: head('게시글 수정하기')}"></head>
+<body>
+	<header th:replace="~{layout/header :: header}"></header>
+	<form method="post" th:method="PUT" th:action="@{/board/post/edit/{bno}(bno=${bContent.id})}" th:object="${bReqDto}">
+		<input type="text" id="id" name="id" th:value="${bContent.id}">
+		<input type="text" id="title" name="title" th:value="${bContent.title}" >
+		<input type="text" id="content" name="content" th:value="${bContent.content}" >
+		<input type="text" id="writer" name="writer" th:value="${bContent.writer}" readOnly>
+		
+		<input type="submit" value="수정">
+	</form>
+	<footer th:replace="~{layout/footer :: footer}"></footer>
+</body>
+</html>

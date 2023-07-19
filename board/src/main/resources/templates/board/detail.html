@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: head('게시글 상세보기')}"></head>
+<script type="text/javascript" th:src="@{/js/board/detail.js}"></script>
+<body>
+	<header th:replace="~{layout/header :: header}"></header>
+		<input type="text" id="title" th:value="${bDetail.title}" readOnly>
+		<input type="text" id="content" th:value="${bDetail.content}" readOnly>
+		<input type="text" id="writer" th:value="${bDetail.writer}" readOnly>
+		<input type="text" id="updateDate" th:value="${#temporals.format(bDetail.updateDate , 'yyyy-MM-dd HH:mm:ss')}" readOnly>
+	
+	<button type="button" id="postEditBtn" th:onclick="|location.href='@{/board/post/edit/{bno}(bno=${bDetail.id})}'|" class="btn btn-primary" >글수정</button>	
+	<footer th:replace="~{layout/footer :: footer}"></footer>	
+</body>
+</html>
